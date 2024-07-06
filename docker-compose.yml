@@ -1,0 +1,28 @@
+version: '3.12.4'
+services:
+  app:
+    build: .
+    container_name: parser_hh
+    volumes:
+      - .:/usr/src/app
+    command: python parser_hh.py
+    depends_on:
+      - db
+    environment:
+
+      - DB_NAME=hh_parsing
+      - DB_USER=postgres
+      - DB_PASS=dashka335
+
+  db:
+    image: postgres:latest
+    container_name: hh_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=hh_parsing
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=dashka335
+
+volumes:
+  postgres_data:
